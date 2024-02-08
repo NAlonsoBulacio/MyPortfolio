@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;900&display=swap');
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.font-poppins-200 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+  }
+  
+  /* Fuente Poppins con peso 900 */
+  .font-poppins-900 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+  }
