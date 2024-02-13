@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import emailjs from "emailjs-com";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ContactForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -8,35 +9,69 @@ const ContactForm = () => {
     subject: "",
     message: "",
   });
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [success, setSuccess] = useState("false");
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  useEffect(() => {
+    setSuccess(false);
+  }, []);
 
-  const serviceId = "service_d3be1jm";
-  const templateId = "template_s5qu5dh";
-  const apiKey = "2MjSYyOi2hn-e8l4w";
+  const serviceId = "service_tf4fz5e";
+  const templateId = "template_e39xq6o";
+  const apiKey = "Ukt44gaahould7x-y";
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    validate({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    emailjs.send(serviceId, templateId, formData, apiKey).then(
-      (response) => {
-        console.log("Correo electrónico enviado con éxito", response);
-        // Puedes mostrar un mensaje de éxito o redirigir al usuario a una página de confirmación.
-      },
-      (error) => {
-        console.error("Error al enviar el correo electrónico", error);
-        // Puedes mostrar un mensaje de error al usuario.
-      }
-    );
-    setFormData({
-      name: "",
-      email: "",
-      subject: "",
-      message: "",
-    });
+    setFormSubmitted(true);
+    if (Object.keys(errors).length === 0) {
+      emailjs.send(serviceId, templateId, formData, apiKey).then(
+        (response) => {
+          console.log("Correo electrónico enviado con éxito", response);
+        },
+        (error) => {
+          console.error("Error al enviar el correo electrónico", error);
+          toast.error("Hubo un error al enviar el mensaje.");
+        }
+      );
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+      toast.success("¡Mensaje enviado exitosamente!");
+      setSuccess(true);
+    }
   };
-
+  const validate = (registro) => {
+    let errors = {};
+    if (!registro.name) {
+      errors.name = "Llenar con su nombre";
+    }
+    if (!registro.email) {
+      errors.email = "Debes ingresar un email.";
+    }
+    if (!registro.message) {
+      errors.message = "Incluye un mensaje en tu contacto.";
+    }
+    if (registro.email) {
+      const emailRegex =
+        /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+      if (!emailRegex.test(registro.email)) {
+        errors.email = "El email ingresado no es válido";
+      }
+    }
+    setErrors(errors);
+  };
   return (
     <div className="">
       <form onSubmit={handleSubmit} className="justify-center items-center">
@@ -64,6 +99,9 @@ const ContactForm = () => {
                 value={formData.name}
                 onChange={handleChange}
               />
+              {formSubmitted && errors.name && (
+                <span className="text-red-500 text-left">{errors.name}</span>
+              )}
             </div>
             <div className="w-full mb-4">
               <label
@@ -82,6 +120,9 @@ const ContactForm = () => {
                 value={formData.email}
                 onChange={handleChange}
               />
+              {formSubmitted && errors.email && (
+                <span className="text-red-500">{errors.email}</span>
+              )}
             </div>
           </div>
           <div className="mb-4">
@@ -118,6 +159,9 @@ const ContactForm = () => {
               value={formData.message}
               onChange={handleChange}
             />
+            {formSubmitted && errors.message && (
+                <span className="text-red-500 text-left">{errors.message}</span>
+              )}
           </div>
           <div className="flex justify-end relative">
             <button
@@ -125,10 +169,11 @@ const ContactForm = () => {
               type="submit"
               style={{ padding: "8px" }}
             >
-              Enviar
+              {success ? "Enviado" : "Enviar"}
             </button>
           </div>
         </div>
+        <ToastContainer />
       </form>
     </div>
   );

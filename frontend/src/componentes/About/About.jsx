@@ -2,15 +2,15 @@ import React from "react";
 import { frontTechSkills, backTechSkills, tools } from "../../utils/techSkills";
 const About = () => {
   return (
-    <div id="about" className="flex flex-wrap space-y-3">
-      <div className="w-full flex justify-start items-center">
+    <div  className="flex flex-wrap space-y-3">
+      <div id="about" className="w-full flex justify-start items-center">
         <h1 className="text-3xl text-left text-white font-poppins-400">
           About <span className="text-cyan-400">.</span>
         </h1>
       </div>
       <div className="flex flex-wrap space-y-3">
         <div className="w-full flex justify-start items-center">
-          <h1 className="w-2/3 text-white font-poppins-200 text-md text-left">
+          <h1 className="w-full text-white font-poppins-200 text-md text-left">
             Disfruto mucho el trabajo creativo, aprender con mis compañeros e
             innovar. Desde mis inicios en el desarrollo de aplicaciones web
             quedé fascinado con la tecnologia, el diseño web y la experiencia de

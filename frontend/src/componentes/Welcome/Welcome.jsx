@@ -2,11 +2,11 @@ import React from "react";
 import { FaCode } from "react-icons/fa6";
 import { IoIosDocument } from "react-icons/io";
 import { FaLink } from "react-icons/fa";
-import nico from '../../multimedia/nico-photo.png';
+
 const Welcome = () => {
   return (
-    <div className="mx-auto max-w-[1323px] h-full flex items-start">
-      <div className="w-2/3 text-white flex flex-wrap space-y-2">
+    <div className="mx-auto w-full flex items-start">
+      <div className="w-full text-white flex flex-wrap space-y-2">
         <div className="w-full">
           <h1 className="font-poppins-900 text-7xl text-left">
             Hola, Soy Nico<span className="text-cyan-400">.</span>
@@ -39,15 +39,7 @@ const Welcome = () => {
           </div>
         </div>
       </div>
-      <div className="text-white w-1/3 flex justify-center items-centern h-[250px] px-10">
-        <div class="overflow-hidden border-2 border-cyan-400 rounded-lg h-full">
-          <img
-            class="w-full object-cover"
-            src={nico}
-            alt="nico"
-          />
-        </div>
-      </div>
+
     </div>
   );
 };
