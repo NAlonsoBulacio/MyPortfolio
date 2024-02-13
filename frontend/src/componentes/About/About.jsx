@@ -2,7 +2,7 @@ import React from "react";
 import { frontTechSkills, backTechSkills, tools } from "../../utils/techSkills";
 const About = () => {
   return (
-    <div className="flex flex-wrap space-y-3">
+    <div id="about" className="flex flex-wrap space-y-3">
       <div className="w-full flex justify-start items-center">
         <h1 className="text-3xl text-left text-white font-poppins-400">
           About <span className="text-cyan-400">.</span>
